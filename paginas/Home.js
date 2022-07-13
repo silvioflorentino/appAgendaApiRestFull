@@ -3,8 +3,9 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { visualizarTodosContatos } from './ContatoModel';
 
-export default function Home() {
+export default function Home({navigation}) {
   const [dadosContatos, setDadosContatos] = useState([]);
+
 
   async function buscarContatos() {
 
@@ -23,12 +24,14 @@ export default function Home() {
   }, []);
 
 
+
+
   return (
-    <View style={styles.container}>
+    <View style={estilo.container}>
       <Text>Contatos</Text>
 
-      <TouchableOpacity style={estilo.botaoCadastrar}>
-        <text style={estilo.botaoTextoCadastrar}>Cadastrar Contatos</text>
+      <TouchableOpacity style={estilo.botaoCadastrar} onPress={()=>navigation.navigate('Cadastro')}>
+        <Text style={estilo.botaoTextoCadastrar}>Cadastrar Contatos</Text>
       </TouchableOpacity>
       <StatusBar style="auto" />
       <FlatList
@@ -48,7 +51,7 @@ export default function Home() {
   );
 }
 
-const styles = StyleSheet.create({
+const estilo = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
