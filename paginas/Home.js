@@ -4,46 +4,31 @@ import { StyleSheet, Text, View, TouchableOpacity, FlatList, Alert } from 'react
 import { visualizarTodosContatos } from './ContatoModel';
 
 export default function Home({navigation}) {
-  const [dadosContatos, setDadosContatos] = useState([]);
-
-
-  async function buscarContatos() {
-
-    const resultado = await visualizarTodosContatos();
-    if (resultado) {
-      setDadosContatos(resultado);
-    } else {
-      Alert.alert('Sem contatos');
-      setDadosContatos('');
-    }
-  }
+const [dadosContatos, setDadosContatos] = useState([]);
 
   useEffect(async () => {
-    const resp = await buscarContatos();
+    const resp = await visualizarTodosContatos();
     setDadosContatos(resp);
-  }, []);
-
-
-
+  },[]);
 
   return (
     <View style={estilo.container}>
       <Text>Contatos</Text>
 
       <TouchableOpacity style={estilo.botaoCadastrar} onPress={()=>navigation.navigate('Cadastro')}>
-        <Text style={estilo.botaoTextoCadastrar}>Cadastrar Contatos</Text>
+        <Text style={estilo.botaoTextoCadastrar}>Cadastrar Contatos Agora</Text>
       </TouchableOpacity>
       <StatusBar style="auto" />
       <FlatList
         data={dadosContatos}
         keyExtractor={dadosContatos => dadosContatos.id}
         renderItem={({ item }) =>
-          <TouchableOpacity style={estilo.botaoDados} >
+            <View style={estilo.subtelas}>
             <Text style={estilo.botaoTextoDados}>{item.id}</Text>
-            <Text style={estilo.botaoTextoDados}>{item.nome}</Text>
-            <Text style={estilo.botaoTextoDados}>{item.fone}</Text>
-            <Text style={estilo.botaoTextoDados}>{item.email}</Text>
-          </TouchableOpacity>
+            <Text style={estilo.botaoTextoDados}>{item.Nome}</Text>
+            <Text style={estilo.botaoTextoDados}>{item.Fone}</Text>
+            <Text style={estilo.botaoTextoDados}>{item.Email}</Text>
+            </View>
         }
       />
 
@@ -75,5 +60,8 @@ const estilo = StyleSheet.create({
   },
   botaoTextoDados:{
     fontSize:20
+  },
+  subtelas:{
+    backgroundColor:"#2d9d8f"
   }
 });
